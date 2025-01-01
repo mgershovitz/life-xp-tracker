@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown</title>
+</head>
+<body>
+    <label for="dropdown">I've completed this quest:</label>
+    <select id="dropdown" name="dropdown">
+        {% for item in items %}
+        <option value="{{ item }}">{{ item }}</option>
+        {% endfor %}
+    </select>
+</body>
+</html>
