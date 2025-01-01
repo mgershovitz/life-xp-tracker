@@ -3,14 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown</title>
+    <title>Quest Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, select, button {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        .quests {
+            margin-top: 30px;
+        }
+        .quest-date {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .quest-item {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
-    <label for="dropdown">I've completed this quest:</label>
-    <select id="dropdown" name="dropdown">
-        {% for item in items %}
-        <option value="{{ item }}">{{ item }}</option>
-        {% endfor %}
-    </select>
+    <h1>Quest Tracker</h1>
+
+    <!-- Button to Add Quest -->
+    <button id="addQuestButton" onclick="showDropdown()">Add your last completed quest</button>
+
+    <!-- Dropdown to Select Quest -->
+    <div id="questDropdown" style="display: none;">
+        <label for="quest">Select Quest:</label>
+        <select id="quest" name="quest">
+            {% for quest in quests %}
+            <option value="{{ quest.name }}|{{ quest.xp }}">{{ quest.name }} (XP: {{ quest.xp }})</option>
+            {% endfor %}
+        </select>
+        <button onclick="submitQuest()">Submit Quest</button>
+    </div>
+
+    <script>
+        // Toggle dropdown visibility when "Add your last completed quest" button is clicked
+        function showDropdown() {
+            document.getElementById('questDropdown').style.display = 'block';
+        }
+
+        // Simulate submitting the selected quest to a different Notion database
+        function submitQuest() {
+	    const selectedQuest = document.getElementById('quest').value;
+            const [questName, xpValue] = selectedQuest.split('|');
+            window.location.href = `/add-quest?quest=${questName}&xp=${xpValue}`;
+        }
+    </script>
 </body>
 </html>
